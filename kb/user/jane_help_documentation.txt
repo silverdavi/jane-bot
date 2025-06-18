@@ -1,0 +1,291 @@
+JANE VOICE ASSISTANT - HELP DOCUMENTATION
+===========================================
+
+Last Updated: 2024-12-15
+Version: Continuous Transcription Demo
+Documentation Type: System Help and Reference
+
+WAKE WORDS AND COMMANDS
+=======================
+
+Wake Words (to start conversation):
+- "hey jane"
+- "hello jane" 
+- "jane"
+- "computer"
+
+Stop Commands (to end demo):
+- "stop demo"
+- "end demo"
+- "quit demo"
+
+Note: Wake words activate conversation mode. Stop commands work during any state - continuous listening, wake detection, or question recording.
+
+AUDIO SETTINGS AND TIMING
+==========================
+
+Sample Rate: 16kHz
+Audio Quality: High fidelity for accurate transcription
+
+Wake Word Detection:
+- Chunk Duration: 3 seconds per audio segment
+- Continuous monitoring until wake word detected
+
+Question Recording:
+- Recording Method: Advanced Voice Activity Detection
+- Chunk Size: 200ms segments for real-time processing
+- Silence Threshold: 0.005 (sensitive detection)
+- Silence Duration to Stop: 2 seconds of quiet
+- Maximum Silence Wait: 10 seconds (prevents infinite waiting)
+- Minimum Recording Time: 1 second before checking silence
+- Maximum Recording Time: 20 seconds total
+- Audio Normalization: Automatic level adjustment to 80% for optimal transcription
+
+Continuous Transcription:
+- Always active when not in conversation mode
+- 3-second audio segments continuously processed
+- Sliding window ambient summaries every 45 seconds
+- Persistent buffer stores all transcription segments
+- Overlapping context windows prevent lost information
+- Automatic cleanup of old segments while preserving context
+
+DEMO TIMING AND DURATION
+=========================
+
+Demo Length: 10 minutes (600 seconds)
+Can be stopped early with stop commands
+
+Continuous Transcription Cycle:
+- 15 seconds maximum per listening cycle
+- Returns to continuous mode after each conversation
+- Sliding window summaries every 45 seconds (minimum 8 segments)
+- 15-segment processing windows with 5-segment overlap
+- Persistent buffer maintains conversation continuity
+
+Audio Feedback Timing:
+- Wake Detected: 0.2 second beep at 800Hz
+- Listening: 0.1 second beep at 400Hz  
+- Processing: 0.3 second beep at 600Hz
+- Responding: 0.2 second beep at 1000Hz
+- Error: 0.5 second beep at 200Hz
+
+OPERATIONAL MODES
+=================
+
+DUAL-THREAD ARCHITECTURE:
+
+FOREGROUND Thread (Main Voice Assistant):
+1. Wake Word Detection Mode (Default):
+   - Primary task: Listen for wake words
+   - Displays: "🔵 LISTENING"
+   - Shows background buffer status
+   - Dedicated audio processing for wake detection
+
+2. Conversation Mode (Wake Word Activated):
+   - Triggered by wake words
+   - Displays: "🟡 WAKE DETECTED" → "🟠 RECORDING" → "🔴 PROCESSING" → etc.
+   - Full question-answer interaction
+   - Returns to wake word detection after response
+
+3. Question Recording Mode:
+   - Advanced voice activity detection
+   - Real-time visual feedback showing speaking/silence
+   - Automatic stop on natural pause
+   - Smart fallback if no clear voice detected
+
+BACKGROUND Thread (Ambient Monitoring):
+4. Continuous Transcription Mode:
+   - Always running in background
+   - Silent ambient audio transcription
+   - Persistent buffer management
+   - Sliding window summarization every 45 seconds
+   - Background stop command detection
+
+AI MODELS AND PROCESSING
+=========================
+
+Wake Word Detection: OpenAI Whisper-1
+Question Transcription: OpenAI Whisper-1 with context optimization
+Question Analysis: Google Gemini 2.5 Flash (fast processing)
+Complex Reasoning: Google Gemini 2.5 Pro (when needed)
+Response Generation: Google Gemini 2.5 Flash/Pro
+Response Polishing: OpenAI GPT-4o-Mini (natural conversation optimization)
+Speech Generation: OpenAI GPT-4o-Mini-TTS
+Ambient Summarization: Google Gemini 2.5 Flash
+
+VOICE SELECTION
+===============
+
+Voices automatically selected by emotional tone:
+- Helpful: Nova (default)
+- Friendly: Alloy
+- Professional: Echo
+- Enthusiastic: Fable
+- Apologetic: Onyx
+
+KNOWLEDGE BASE SYSTEM
+=====================
+
+File Types Created:
+
+1. Conversation Files (conversation_YYYYMMDD_HHMMSS.txt):
+   - Direct Q&A interactions with Jane
+   - Contains question, answer, and timestamp
+   - Created after each successful conversation
+
+2. Sliding Window Summary Files (ambient_sliding_summary_YYYYMMDD_HHMMSS.txt):
+   - Contextual summaries using overlapping windows
+   - Generated every 45 seconds with 15-segment windows
+   - Includes context from previous segments for continuity
+   - Contains window metadata, duration, and processing details
+   - Only saved if meaningful new content detected
+
+3. Transcription Buffer (transcription_buffer.json):
+   - Persistent storage of all transcription segments
+   - Maintains processing state and indexes
+   - Enables conversation continuity across sessions
+   - Automatic cleanup while preserving context
+
+4. Help Documentation (this file):
+   - System reference and capabilities
+   - Wake words, commands, and settings
+   - Operational procedures and timing
+
+Storage Location: kb/user/ directory
+All files include timestamps and metadata
+
+VISUAL FEEDBACK SYSTEM
+=======================
+
+State Banners and Colors:
+1. 🔵 CONTINUOUS LISTENING (Blue) - Transcribing continuously
+2. 🟣 AMBIENT SUMMARY (Magenta) - Gemini summarizing 10s buffer
+3. 🟡 WAKE DETECTED (Yellow) - Wake phrase recognized
+4. 🟠 RECORDING (Orange) - Voice activity detection active
+5. 🔴 PROCESSING (Red) - Gemini 2.5 analyzing question
+6. 🟣 SEARCHING (Purple) - Knowledge base lookup
+7. 🟢 GENERATING (Green) - Response creation and polishing
+8. 🎵 SPEAKING (Cyan) - Audio response playback
+9. 🛑 STOP DETECTED (Red) - Stop command recognized
+
+Real-time Indicators:
+- Speaking/Silence detection with volume bars
+- Buffer size and segment count
+- Time remaining in demo
+- Conversation counter
+
+QUESTION ANALYSIS PROCESS
+=========================
+
+Jane uses a 2-step intelligent response process:
+
+Step 1 - Gemini Analysis:
+- Determines if question can be answered directly
+- Checks if knowledge base search needed
+- Identifies appropriate emotional tone
+- Provides raw response or search strategy
+
+Step 2 - GPT-4o-Mini Polishing:
+- Makes responses natural and conversational
+- Optimizes for voice interaction
+- Maintains emotional tone
+- Ensures clarity and conciseness
+
+TROUBLESHOOTING INFORMATION
+===========================
+
+Common Issues and Solutions:
+
+Poor Wake Word Detection:
+- Speak louder and clearer
+- Get closer to microphone (1-2 feet optimal)
+- Reduce background noise
+- Check microphone permissions
+
+Poor Question Transcription:
+- Speak at normal conversational pace
+- Wait for voice activity indicator to show 🔊 SPEAKING
+- Allow natural pauses to trigger recording stop
+- Ensure microphone sensitivity is adequate
+
+Audio Playback Issues:
+- Check speaker/headphone connections
+- Verify system audio settings
+- Ensure afplay (macOS) is available
+
+API Connection Problems:
+- Verify API keys in config/api_keys.env
+- Check internet connection
+- Ensure sufficient API credits
+
+Stop Command Not Working:
+- Speak "stop demo" clearly during any transcription
+- Command works in all states, not just conversation
+- Alternative phrases: "end demo", "quit demo"
+
+TECHNICAL SPECIFICATIONS
+=========================
+
+Dependencies Required:
+- sounddevice >= 0.4.6 (audio processing)
+- numpy >= 1.24.0 (audio data handling)
+- openai >= 1.0.0 (speech and language processing)
+- google-generativeai >= 0.3.0 (Gemini models)
+- colorama >= 0.4.6 (visual feedback)
+- python-dotenv >= 1.0.0 (configuration)
+
+Audio Hardware Requirements:
+- Microphone with reasonable sensitivity
+- Speakers or headphones for audio feedback
+- Microphone permissions enabled in system
+
+Network Requirements:
+- Stable internet connection for API calls
+- Adequate bandwidth for real-time processing
+
+USAGE BEST PRACTICES
+=====================
+
+For Best Results:
+1. Use in quiet environment when possible
+2. Speak clearly at conversational volume
+3. Position microphone 1-2 feet from mouth
+4. Allow natural pauses in speech
+5. Use wake words clearly before questions
+6. Wait for audio confirmation before speaking
+
+Demo Optimization:
+- Start with simple questions to test
+- Use "stop demo" if needed to end early
+- Monitor visual feedback for system status
+- Check knowledge base files for stored content
+
+FEATURE OVERVIEW
+=================
+
+Continuous Transcription:
+- Always listening and processing
+- Builds ambient awareness over time
+- Creates searchable conversation history
+
+Intelligent Wake Detection:
+- Multiple wake word options
+- Works within continuous stream
+- Seamless mode transitions
+
+Advanced Voice Activity:
+- Real-time speaking/silence detection
+- Smart pause recognition
+- Prevents cutoff mid-sentence
+
+Smart Knowledge Base:
+- Dual storage system (conversations + ambient)
+- Automatic summarization
+- Searchable historical content
+
+Natural Response Generation:
+- Multi-model processing pipeline
+- Emotional tone adaptation
+- Voice-optimized output
+
+This documentation is part of Jane's knowledge base and can be referenced during conversations to answer questions about capabilities, commands, and operations. 

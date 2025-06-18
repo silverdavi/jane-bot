@@ -1,0 +1,88 @@
+JANE VOICE ASSISTANT - QUICK REFERENCE
+=======================================
+
+ESSENTIAL COMMANDS
+==================
+
+Wake Words:
+• "hey jane" - Start conversation
+• "hello jane" - Start conversation  
+• "jane" - Start conversation
+• "computer" - Start conversation
+
+Stop Commands:
+• "stop demo" - End demo anytime
+• "end demo" - End demo anytime
+• "quit demo" - End demo anytime
+
+KEY TIMING INFORMATION
+======================
+
+• Demo Duration: 10 minutes total
+• Recording Timeout: 20 seconds maximum
+• Silence to Stop Recording: 2 seconds
+• Maximum Wait for Silence: 10 seconds
+• Sliding Window Summaries: Every 45 seconds (min 8 segments)
+• Window Size: 15 segments with 5-segment overlap
+
+OPERATIONAL MODES
+=================
+
+1. Continuous Listening (Default)
+   - Always transcribing everything
+   - Creating ambient summaries
+   - Monitoring for wake words
+
+2. Conversation Mode
+   - Activated by wake words
+   - Full Q&A interaction
+   - Returns to continuous listening
+
+AUDIO FEEDBACK SOUNDS
+=====================
+
+• Wake Detected: High beep (800Hz)
+• Listening: Low beep (400Hz)
+• Processing: Medium beep (600Hz)
+• Responding: High beep (1000Hz)
+• Error: Low beep (200Hz)
+
+VOICE TYPES
+===========
+
+• Nova: Helpful (default)
+• Alloy: Friendly
+• Echo: Professional
+• Fable: Enthusiastic
+• Onyx: Apologetic
+
+KNOWLEDGE BASE FILES
+====================
+
+• conversation_*.txt - Q&A sessions
+• ambient_sliding_summary_*.txt - Contextual background summaries
+• transcription_buffer.json - Persistent segment storage
+• jane_help_documentation.txt - Complete help
+• jane_quick_reference.txt - This file
+
+VISUAL STATES
+=============
+
+🔵 Continuous Listening
+🟡 Wake Word Detected
+🟠 Recording Question
+🔴 Processing with AI
+🟢 Generating Response
+🎵 Speaking Response
+🛑 Stop Command Detected
+
+TROUBLESHOOTING TIPS
+====================
+
+• Speak 1-2 feet from microphone
+• Use clear, conversational pace
+• Check microphone permissions
+• Reduce background noise
+• Watch for visual state indicators
+
+For complete details, see jane_help_documentation.txt 

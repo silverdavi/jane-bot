@@ -1,0 +1,58 @@
+# Voice Assistant Configuration
+
+# Audio Settings
+audio:
+  wake_word: "hey_jane"
+  sample_rate: 16000
+  max_recording_duration: 30
+  input_device_index: null  # null for default device
+  output_device_index: null  # null for default device
+
+# Performance Settings
+performance:
+  max_response_latency: 8.0
+  transcription_timeout: 5.0
+  wake_word_timeout: 0.5
+  recording_buffer_size: 1024
+
+# Knowledge Base Settings
+knowledge_base:
+  root_path: "./kb"
+  max_context_length: 4000
+  enable_embeddings: false  # Set to true when ready for vector search
+  auto_organize_files: true
+
+# API Settings (Override with environment variables)
+apis:
+  openai:
+    model_transcription: "gpt-4o-transcribe"
+    model_tts: "gpt-4o-mini-tts"
+    fallback_transcription: "gpt-4o-mini-transcribe"
+  gemini:
+    model_chat: "gemini-2.5-flash"          # 🔥 Latest Gemini 2.5 Flash (thinking model)
+    model_reasoning: "gemini-2.5-pro"       # 🧠 Most intelligent for complex tasks
+    model_embedding: "gemini-embedding-exp-03-07"  # Keep best embedding model
+    model_tts: "gemini-2.5-flash-preview-tts"      # Native audio output
+    model_cost_optimized: "gemini-2.5-flash-lite-preview-06-17"  # High-volume tasks
+  perplexity:
+    model_search: "llama-3.1-sonar-small-128k-online"
+
+# Voice Personality Settings
+voice:
+  default_instructions: "Speak like a helpful and friendly assistant"
+  response_style: "conversational"
+  available_voices:
+    - "alloy"
+    - "echo"
+    - "fable"
+    - "onyx"
+    - "nova"
+    - "shimmer"
+  default_voice: "nova"
+
+# Logging Settings
+logging:
+  level: "INFO"
+  log_interactions: true
+  log_audio_files: false  # Set to true for debugging
+  max_log_file_size: "10MB" 
